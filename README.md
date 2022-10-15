@@ -1,15 +1,15 @@
-# koa-rate-limit
+# koa-util-limit
 
 ## Install
 
 ```bash
-$ npm install koa-rate-limit
+$ npm install koa-util-limit
 ```
 
 ## Usage
 
 ```js
-const koaRateLimit = require('koa-rate-limit');
+const koaRateLimit = require('koa-util-limit');
 const Redis = require('ioredis')
 const koa = require('koa');
 const app = koa();
