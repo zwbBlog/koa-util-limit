@@ -1,5 +1,3 @@
-
-
 class Limit {
     db: Map<string, { [key: string]: any }>;
     max: number;
@@ -49,7 +47,7 @@ export default ({
     });
     return async (ctx, next) => {
         const identification = id(ctx);
-        const w = Boolean(white(ctx)), b = Boolean(black(ctx));
+        const w = Boolean(await white(ctx)), b = Boolean(await black(ctx));
         let errorBody = error;
         let errorCode = error.code;
         try {
