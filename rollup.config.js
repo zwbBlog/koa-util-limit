@@ -15,7 +15,7 @@ export default {
             'throwOnWarning': false,
             'include': ['src/**']
         }),
-        typescript({ 'compilerOptions': { 'module': 'CommonJS' } }),
+        typescript(),
         commonjs({ 'extensions': ['.js', '.ts'] }), // the ".ts" extension is required
         babel({
             'exclude': 'node_modules/**' // 只编译我们的源代码
