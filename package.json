@@ -1,6 +1,6 @@
 {
-  "name": "koa-rate-limit",
-  "version": "1.0.0",
+  "name": "koa-util-limit",
+  "version": "1.0.0-beta.1",
   "description": "koa的一个限流器",
   "type": "module",
   "main": "dist/bundle.js",
@@ -8,8 +8,10 @@
     "dev": "rollup -c -w",
     "build": "rollup -c"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["koa-util-limit","koa-rate-limit"],
+  "author": "zlgb",
+  "email":"zlgbmail@163.com",
+  "homepage": "https://github.com/zwbBlog/koa-util-limit",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.19.3",
