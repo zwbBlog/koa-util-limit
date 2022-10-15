@@ -1,6 +1,6 @@
 {
   "name": "koa-util-limit",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "koa的一个限流器",
   "type": "module",
   "main": "dist/bundle.js",
