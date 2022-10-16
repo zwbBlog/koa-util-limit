@@ -16,7 +16,7 @@ const app = koa();
 app.use(koaRateLimit({
     //memory or redis
     'driver': 'redis' 
-    //If it is redis, it can be ignored
+    //If it is memory, it can be ignored
     'db': new Redis(), 
     //100 calls at most in 60 * 1000ms
     'duration': 60*1000,
