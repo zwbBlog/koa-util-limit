@@ -4,6 +4,7 @@
   "description": "koa的一个限流器",
   "type": "module",
   "main": "dist/bundle.js",
+  "types": "src/modules.d.ts",
   "scripts": {
     "dev": "rollup -c -w",
     "build": "rollup -c"
