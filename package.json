@@ -25,7 +25,7 @@
   "author": "zlgb",
   "email":"zlgbmail@163.com",
   "homepage": "https://github.com/zwbBlog/koa-util-limit",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@babel/preset-env": "^7.19.4",
