@@ -364,6 +364,10 @@
                 "js": "never",
                 "vue": "never"
             }
+        ],
+        //去除ts设置any警告
+        "@typescript-eslint/no-explicit-any": [
+            0
         ]
     }
 }

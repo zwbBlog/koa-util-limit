@@ -7,7 +7,7 @@ import { uglify } from 'rollup-plugin-uglify';
 // rollup.config.js
 export default {
     // 核心选项
-    'input': './src/index.ts', // 必须
+    'input': './src/index.ts',
     'plugins': [
         eslint({
             'fix': true,
@@ -23,7 +23,8 @@ export default {
         uglify(),
         terser()
     ],
-    'output': { // 必须 (如果要输出多个，可以是一个数组)
+    'output': {
+        // 必须 (如果要输出多个，可以是一个数组)
         // 核心选项
         'file': './dist/bundle.js', // 必须
         'format': 'cjs' // 必须
