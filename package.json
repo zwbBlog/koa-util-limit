@@ -3,7 +3,7 @@
   "version": "1.0.0-beta.6",
   "description": "koa的一个限流器",
   "main": "dist/bundle.js",
-  "types": "src/modules.d.ts",
+  "types": "src/index.d.ts",
   "files": [
     "dist/**/*",
     "index.d.ts"
