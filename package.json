@@ -1,15 +1,27 @@
 {
   "name": "koa-util-limit",
-  "version": "1.0.0-beta.4",
+  "version": "1.0.0-beta.5",
   "description": "koa的一个限流器",
   "type": "module",
   "main": "dist/bundle.js",
   "types": "src/modules.d.ts",
+  "files": [
+    "dist/bundle.js",
+    "src/modules.d.ts"
+  ],
   "scripts": {
     "dev": "rollup -c -w",
     "build": "rollup -c"
   },
-  "keywords": ["koa-util-limit","koa-rate-limit"],
+  "keywords": [
+    "koa",
+    "koa-util-limit",
+    "koa-rate-limit",
+    "middleware",
+    "ratelimiter",
+    "ratelimit",
+    "rate"
+  ],
   "author": "zlgb",
   "email":"zlgbmail@163.com",
   "homepage": "https://github.com/zwbBlog/koa-util-limit",
