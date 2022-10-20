@@ -1,4 +1,9 @@
 type Driver = 'redis' | 'memory'
+export type IMap = Map<string, { [key: string]: any }>
+export type IError = string | { [key: string]: any }
+export interface IRoster {
+    (ctx: any): boolean | undefined
+}
 export interface Config {
     //id unique identification
     id: () => string
@@ -10,11 +15,11 @@ export interface Config {
     //namespace
     namespace?: string
     //error response
-    error?: string | { [key: string]: any }
+    error?: IError
     //blacklist
-    black?: () => boolean
+    black?: IRoster
     //whitelist
-    white?: () => boolean
+    white?: IRoster
     //If it is redis, it can be ignored
-    db?: any
+    db?: IMap | any
 }

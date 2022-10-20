@@ -1,11 +1,12 @@
+import { IError, IRoster, IMap } from '../../index';
 class Limit {
-    db: Map<string, { [key: string]: any }>;
+    db: IMap;
     max: number;
     duration: number;
     namespace: string;
-    error: string;
-    white?: () => any;
-    black?: () => any;
+    error: IError;
+    white?: IRoster;
+    black?: IRoster;
     constructor({
         db, max, duration, namespace, error
     }) {
@@ -24,7 +25,7 @@ class Limit {
         cardJson.data.push(now);
         this.db.set(cardName, cardJson);
     }
-    get(id): void {
+    get(id: string): void {
         const cardName = `${this.namespace}:${id}`;
         const cardJson = this.db.get(cardName) || {};
         const now = Date.now();

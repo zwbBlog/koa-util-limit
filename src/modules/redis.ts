@@ -1,11 +1,12 @@
+import { IError, IRoster } from '../../index';
 class Limit {
     db: any;
     max: number;
     duration: number;
     namespace: string;
-    error: string;
-    white?: () => boolean | undefined;
-    black?: () => boolean | undefined;
+    error: IError;
+    white?: IRoster;
+    black?: IRoster;
     constructor({
         db, max, duration, namespace, error
     }) {
