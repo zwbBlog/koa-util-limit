@@ -41,7 +41,7 @@ export default ({
     const limit = new Limit({
         db, max, duration, namespace, error
     });
-    return async (ctx, next) => {
+    return async (ctx: any, next: () => void) => {
         const identification = id(ctx);
         const w = Boolean(await white(ctx)), b = Boolean(await black(ctx));
         let errorBody = error;
