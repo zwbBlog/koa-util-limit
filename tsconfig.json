@@ -1,0 +1,48 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": false,
+        "allowJs": true,
+        "checkJs": true,
+        "baseUrl": ".",
+        "paths": {
+            "src/*": [
+                "*",
+                "src/*"
+            ]
+        },
+        "types": [],
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "jsx": "preserve",
+        "jsxFactory": "h",
+        "noUnusedLocals": true,
+        // 采用的模块系统
+        "module": "es2015",
+        // 编译输出目标 ES 版本
+        "target": "es5",
+        // 如何处理模块
+        "moduleResolution": "node",
+        // 将每个文件作为单独的模块
+        "isolatedModules": true,
+        "lib": [
+            "dom",
+            "es5",
+            "es6",
+            "es7",
+            "es2015.promise"
+        ],
+        "pretty": true,
+        "skipLibCheck": true,
+        "outDir": "./**"
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.d.ts"
+    ]
+}

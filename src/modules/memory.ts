@@ -1,4 +1,4 @@
-import { IError, IRoster, IMap } from '../../index';
+import { IError, IRoster, IMap, Config, ILimit, IMemoryMap } from '../../index';
 class Limit {
     db: IMap;
     max: number;
@@ -7,9 +7,7 @@ class Limit {
     error: IError;
     white?: IRoster;
     black?: IRoster;
-    constructor({
-        db, max, duration, namespace, error
-    }) {
+    constructor({ db, max, duration, namespace, error }: ILimit) {
         this.db = db;
         this.max = max;
         this.duration = duration;
@@ -19,7 +17,7 @@ class Limit {
     set(id: string, type?: string): void {
         const cardName = `${this.namespace}:${id}`;
         const now = Date.now();
-        const defaultMap = { 'time': now, 'data': [] };
+        const defaultMap: IMemoryMap = { 'time': now, 'data': [] };
         let cardJson = this.db.get(cardName);
         cardJson = type === 'reset' || !cardJson ? defaultMap : cardJson;
         cardJson.data.push(now);
@@ -41,7 +39,7 @@ class Limit {
 }
 export default ({
     id, max, duration, namespace, error, white, black
-}) => {
+}: Config) => {
     if (!id) { throw new Error('id function is required'); }
     const limit = new Limit({
         'db': new Map(), max, duration, namespace, error

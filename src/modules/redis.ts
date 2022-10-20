@@ -1,4 +1,4 @@
-import { IError, IRoster } from '../../index';
+import { IError, IRoster, Config, ILimit } from '../../index';
 class Limit {
     db: any;
     max: number;
@@ -9,14 +9,14 @@ class Limit {
     black?: IRoster;
     constructor({
         db, max, duration, namespace, error
-    }) {
+    }: ILimit) {
         this.db = db;
         this.max = max;
         this.duration = duration;
         this.namespace = namespace;
         this.error = error;
     }
-    async set(id): Promise<void> {
+    async set(id: string): Promise<void> {
         const cardName = `${this.namespace}:${id}`;
         const now = Date.now();
         await this.db.zcard(this.namespace);
@@ -24,7 +24,7 @@ class Limit {
         const ttl = await this.db.ttl(cardName);
         if (ttl <= -1) { await this.db.pexpire(cardName, this.duration); }
     }
-    async get(id): Promise<void> {
+    async get(id: string): Promise<void> {
         const cardName = `${this.namespace}:${id}`;
         const cardData = await this.db.zrange(cardName, 0, -1);
         if (cardData.length < this.max) {
@@ -35,7 +35,7 @@ class Limit {
 }
 export default ({
     id, db, max, duration, namespace, error, white, black
-}) => {
+}: Config) => {
     if (!id) { throw new Error('id function is required'); }
     if (!db) { throw new Error('db is required'); }
     const limit = new Limit({
