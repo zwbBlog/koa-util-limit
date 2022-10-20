@@ -1,5 +1,9 @@
 type Driver = 'redis' | 'memory'
-export type IMap = Map<string, { [key: string]: any }>
+export interface IMemoryMap {
+    time: number
+    data: Array<number | Date>
+}
+export type IMap = Map<string, IMemoryMap>
 export interface IError {
     code: number
     msg: string
@@ -26,8 +30,4 @@ export interface ILimit {
 export interface Config extends ILimit {
     //id unique identification
     id: (ctx: any) => string
-}
-export interface IMemoryMap {
-    time: number
-    data: Array<number | Date>
 }

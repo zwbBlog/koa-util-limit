@@ -25,9 +25,9 @@ class Limit {
     }
     get(id: string): void {
         const cardName = `${this.namespace}:${id}`;
-        const cardJson = this.db.get(cardName) || {};
         const now = Date.now();
-        const { time = now, data = [] } = cardJson;
+        const cardJson: IMemoryMap = this.db.get(cardName) || { 'time': now, 'data': [] };
+        const { time, data } = cardJson;
         if (now - time <= this.duration && data.length < this.max) {
             return this.set(id);
         }
