@@ -1,12 +1,10 @@
-import { IError, IRoster, IMap, Config, ILimit, IMemoryMap } from '../../index';
+import { IError, IMap, Config, ILimit, IMemoryMap } from '../../index';
 class Limit {
     db: IMap;
     max: number;
     duration: number;
     namespace: string;
     error: IError;
-    white?: IRoster;
-    black?: IRoster;
     constructor({ db, max, duration, namespace, error }: ILimit) {
         this.db = db;
         this.max = max;
