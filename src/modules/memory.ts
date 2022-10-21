@@ -1,11 +1,11 @@
-import { IError, IMap, Config, ILimit, IMemoryMap } from '../../index';
+import { Statement } from '../../index';
 class Limit {
-    db: IMap;
+    db: Statement.IMap;
     max: number;
     duration: number;
     namespace: string;
-    error: IError;
-    constructor({ db, max, duration, namespace, error }: ILimit) {
+    error: Statement.IError;
+    constructor({ db, max, duration, namespace, error }: Statement.ILimit) {
         this.db = db;
         this.max = max;
         this.duration = duration;
@@ -15,7 +15,7 @@ class Limit {
     set(id: string, type?: string): void {
         const cardName = `${this.namespace}:${id}`;
         const now = Date.now();
-        const defaultMap: IMemoryMap = { 'time': now, 'data': [] };
+        const defaultMap: Statement.IMemoryMap = { 'time': now, 'data': [] };
         let cardJson = this.db.get(cardName);
         cardJson = type === 'reset' || !cardJson ? defaultMap : cardJson;
         cardJson.data.push(now);
@@ -24,7 +24,7 @@ class Limit {
     get(id: string): void {
         const cardName = `${this.namespace}:${id}`;
         const now = Date.now();
-        const cardJson: IMemoryMap = this.db.get(cardName) || { 'time': now, 'data': [] };
+        const cardJson: Statement.IMemoryMap = this.db.get(cardName) || { 'time': now, 'data': [] };
         const { time, data } = cardJson;
         if (now - time <= this.duration && data.length < this.max) {
             return this.set(id);
@@ -37,7 +37,7 @@ class Limit {
 }
 export default ({
     id, max, duration, namespace, error, white, black
-}: Config) => {
+}: Statement.Config) => {
     if (!id) { throw new Error('id function is required'); }
     const limit = new Limit({
         'db': new Map(), max, duration, namespace, error

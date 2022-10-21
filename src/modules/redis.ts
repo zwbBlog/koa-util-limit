@@ -1,13 +1,11 @@
-import { IError, Config, ILimit } from '../../index';
+import { Statement } from '../../index';
 class Limit {
     db: any;
     max: number;
     duration: number;
     namespace: string;
-    error: IError;
-    constructor({
-        db, max, duration, namespace, error
-    }: ILimit) {
+    error: Statement.IError;
+    constructor({ db, max, duration, namespace, error }: Statement.ILimit) {
         this.db = db;
         this.max = max;
         this.duration = duration;
@@ -33,7 +31,7 @@ class Limit {
 }
 export default ({
     id, db, max, duration, namespace, error, white, black
-}: Config) => {
+}: Statement.Config) => {
     if (!id) { throw new Error('id function is required'); }
     if (!db) { throw new Error('db is required'); }
     const limit = new Limit({
