@@ -1,4 +1,4 @@
-import { Statement } from '../../index';
+import { Statement } from '../../';
 class Limit {
     db: any;
     max: number;
