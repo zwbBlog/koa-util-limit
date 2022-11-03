@@ -32,7 +32,7 @@ class Limit {
         if (now - time > this.duration) {
             return this.set(id, 'reset');
         }
-        throw new Error(`${this.duration}内超过最大限制${this.max}`);
+        throw new Error(`${this.duration}ms内超过最大限制${this.max}次`);
     }
 }
 export default ({
@@ -45,20 +45,18 @@ export default ({
     return async (ctx: any, next: () => void) => {
         const identification = id(ctx);
         const w = Boolean(await white(ctx)), b = Boolean(await black(ctx));
-        let errorBody = error;
-        let errorCode = error.code;
+        let { code, msg } = error;
         try {
             if (b) {
-                errorCode = 403;
-                errorBody = { 'code': 403, 'msg': 'forbidden' };
+                code = 403; msg = 'forbidden';
                 throw new Error('blacklist');
             }
             if (!b && w) { return await next(); }
             await limit.get(identification);
             return await next();
         } catch (e) {
-            ctx.status = errorCode;
-            ctx.body = errorBody;
+            ctx.status = code;
+            ctx.body = { code, msg, 'e': JSON.stringify(e) };
         }
     };
 };
