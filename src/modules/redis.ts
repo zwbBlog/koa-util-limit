@@ -20,13 +20,16 @@ class Limit {
         const ttl = await this.db.ttl(cardName);
         if (ttl <= -1) { await this.db.pexpire(cardName, this.duration); }
     }
-    async get(id: string): Promise<void> {
+    async get(id: string): Promise<void | { status: number, msg: string }> {
         const cardName = `${this.namespace}:${id}`;
         const cardData = await this.db.zrange(cardName, 0, -1);
         if (cardData.length < this.max) {
             return await this.set(id);
         }
-        throw new Error(`${this.duration}ms内超过最大限制${this.max}次`);
+        return {
+            status: this.error.code,
+            msg: `${this.duration}ms内超过最大限制${this.max}次`
+        }
     }
 }
 export default ({
@@ -46,11 +49,10 @@ export default ({
             return ctx.body = { code, msg };
         }
         if (!b && w) { return await next(); }
-        try {
-            await limit.get(identification);
-            return await next();
-        } catch (e) {
-            ctx.body = { code, msg, 'e': JSON.stringify(e) };
+        const result = await limit.get(identification);
+        if (result && result.status === code) {
+            return ctx.body = { code, msg: result.msg };
         }
+        return await next();
     };
 };

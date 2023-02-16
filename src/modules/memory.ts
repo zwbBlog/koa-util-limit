@@ -21,7 +21,7 @@ class Limit {
         cardJson.data.push(now);
         this.db.set(cardName, cardJson);
     }
-    get(id: string): void {
+    get(id: string): void | { status: number, msg: string } {
         const cardName = `${this.namespace}:${id}`;
         const now = Date.now();
         const cardJson: Statement.IMemoryMap = this.db.get(cardName) || { 'time': now, 'data': [] };
@@ -32,7 +32,10 @@ class Limit {
         if (now - time > this.duration) {
             return this.set(id, 'reset');
         }
-        throw new Error(`${this.duration}ms内超过最大限制${this.max}次`);
+        return {
+            status: this.error.code,
+            msg: `${this.duration}ms内超过最大限制${this.max}次`
+        }
     }
 }
 export default ({
@@ -51,11 +54,10 @@ export default ({
             return ctx.body = { code, msg };
         }
         if (!b && w) { return await next(); }
-        try {
-            await limit.get(identification);
-            return await next();
-        } catch (e) {
-            ctx.body = { code, msg, 'e': JSON.stringify(e) };
+        const result = await limit.get(identification);
+        if (result && result.status === code) {
+            return ctx.body = { code, msg: result.msg };
         }
+        return await next();
     };
 };
