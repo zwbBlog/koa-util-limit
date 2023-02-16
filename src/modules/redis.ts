@@ -41,16 +41,15 @@ export default ({
         const identification = id(ctx);
         const w = Boolean(await white(ctx)), b = Boolean(await black(ctx));
         let { code, msg } = error;
+        if (b) {
+            code = 403; msg = 'forbidden';
+            return ctx.body = { code, msg };
+        }
+        if (!b && w) { return await next(); }
         try {
-            if (b) {
-                code = 403; msg = 'forbidden';
-                throw new Error('blacklist');
-            }
-            if (!b && w) { return await next(); }
             await limit.get(identification);
             return await next();
         } catch (e) {
-            ctx.status = code;
             ctx.body = { code, msg, 'e': JSON.stringify(e) };
         }
     };
