@@ -33,9 +33,9 @@ class Limit {
             return this.set(id, 'reset');
         }
         return {
-            status: this.error.code,
-            msg: `${this.duration}ms内超过最大限制${this.max}次`
-        }
+            'status': this.error.code,
+            'msg': `${this.duration}ms内超过最大限制${this.max}次`
+        };
     }
 }
 export default ({
@@ -56,7 +56,7 @@ export default ({
         if (!b && w) { return await next(); }
         const result = await limit.get(identification);
         if (result && result.status === code) {
-            return ctx.body = { code, msg: result.msg };
+            return ctx.body = { code, 'msg': result.msg };
         }
         return await next();
     };
