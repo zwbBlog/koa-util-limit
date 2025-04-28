@@ -28,7 +28,7 @@ class Limit {
         }
         return {
             'status': this.error.code,
-            'msg': `${this.duration}ms内超过最大限制${this.max}次`
+            'msg': `${this.max} calls at most in ${this.duration}ms`
         };
     }
 }
@@ -46,12 +46,14 @@ export default ({
         let { code, msg } = error;
         if (b) {
             code = 403; msg = 'forbidden';
-            return ctx.body = { code, msg };
+            ctx.body = { code, msg };
+            return false;
         }
         if (!b && w) { return await next(); }
         const result = await limit.get(identification);
         if (result && result.status === code) {
-            return ctx.body = { code, 'msg': result.msg };
+            ctx.body = { code, 'msg': result.msg };
+            return false;
         }
         return await next();
     };
